@@ -1,0 +1,28 @@
+{
+  "name": "ex09_start",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "@vue/composition-api": "^1.0.0-rc.8",
+    "core-js": "^3.12.1",
+    "firebase": "^7.24.0",
+    "register-service-worker": "^1.7.2",
+    "vue": "^2.6.12",
+    "vuefire": "^3.0.0-alpha.2",
+    "vuetify": "^2.5.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^4.5.13",
+    "@vue/cli-plugin-pwa": "^4.5.13",
+    "@vue/cli-service": "^4.5.13",
+    "sass": "^1.32.13",
+    "sass-loader": "^9.0.3",
+    "vue-cli-plugin-vuetify": "^2.4.0",
+    "vue-template-compiler": "^2.6.12",
+    "vuetify-loader": "^1.7.2"
+  }
+}
