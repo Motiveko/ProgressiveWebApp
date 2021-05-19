@@ -59,7 +59,7 @@
                       </v-text-field>
                     </v-card-text>
                     <v-card-actions>
-                      <v-icon class="pointer" @click="fnSaveEdit(item)">icon</v-icon>
+                      <v-icon class="pointer" @click="fnSaveEdit(item)">create</v-icon>
                       <v-icon class="pointer" @click="fnCancelEdit(item['.key'])">cancel</v-icon>
                     </v-card-actions>
                   </v-list-item>
@@ -103,6 +103,7 @@ export default {
       oTodosinDB.child(pKey).remove()
     },
     fnSetEditTodo(pKey) {
+
       // db구조는 트리 구조인데 각각 노드가 key값을 가져서 이걸로 참조하는 형태
       // 루트 노드에서 자식 노드 가져오기
       // update는 수정할 값만 적어주면 되는듯하다

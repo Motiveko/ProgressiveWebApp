@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <!-- Vuex를 사용하기 위해 CDN 연결 -->
+  <script src="https://unpkg.com/vuex"></script>
+</head>
+<body>
+  <div id="app">
+    <h1>안녕하세요!</h1>
+    <com-counter msg="카운터1"></com-counter>
+    <com-counter msg="카운터2"></com-counter>
+  </div>
+
+  <script>
+    const store = new Vuex.Store({
+      state: {
+        count: 0
+      },
+      mutations: {
+        fnIncData(state) {
+          return state.count++
+        },
+        fnDecData: state => state.count--
+      },
+      getters: {
+        fnGetData(state){
+          return state.count;
+        }
+      },
+      actions: {
+        async fnDecData({
+          commit
+        }, state) {
+          console.log('하이')
+          const result = await api.fnDecrement();
+          if(result == true ) commit('fnDecData')
+        }
+      }
+    })
+
+    const api = {
+      fnDecrement() {
+        return new Promise( (resolve, reject) => {
+          setTimeout(() => resolve(true), 1000)
+        })
+      }
+    }    
+
+    Vue.component('com-counter', {
+      props: ['msg'],
+      template: `
+      <div>
+        <h2>{{ msg }} </h2>
+        <p>카운터 : {{ fnGetCount}}</p>
+        <button @click="fnIncCount"> +1 증가</button>
+        <button @click="fnDecCount"> -1 감소</button>
+        <hr>
+      </div>
+      `,
+      computed: {
+        fnGetCount() {
+          return store.getters.fnGetData;
+        },
+      },
+      methods: {
+          fnIncCount() {
+            store.commit('fnIncData')
+          },
+          fnDecCount() {
+            // dispatch(actionsm async) -> ...(1000ms) -> commit(mutations)
+            store.dispatch('fnDecData')
+          }
+      }
+    })
+    
+    var app = new Vue({
+      el: '#app',
+      store
+    })
+  </script>
+</body>
+</html>

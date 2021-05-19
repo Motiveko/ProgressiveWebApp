@@ -1,6 +1,8 @@
-const sCacheName = 'hello-pwa'
+const sCacheName = 'hello-pwa-v2'
 const aFilesToCache = [
-    './', './index.html', './manifest.json', './images/hello-pwa.png'
+    './', './index.html', './manifest.json', './images/hello-pwa.png',
+    './images/icons/favicon.ico',
+    './images/icons/android-chrome-512x512.png'
 ]
 
 self.addEventListener('install', pEvent => {
