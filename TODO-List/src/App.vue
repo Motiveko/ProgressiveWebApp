@@ -75,8 +75,8 @@
 
 <script>
 // @ : src 폴더를 의미
-import {oTodosinDB} from '@/datasource/firebase'
 
+import {oTodosinDB} from '@/datasource/firebase'
 
 export default {
   name: 'App',

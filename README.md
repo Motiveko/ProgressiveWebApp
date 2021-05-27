@@ -89,6 +89,10 @@ module.exports = {
 <br> 
 
 ### Ch 11
+```
+
+```
+
 
 <br>
 
@@ -105,6 +109,21 @@ module.exports = {
       - https://firebase.google.com/docs/hosting/serverless-overview?authuser=0
     - 명령어 하나로 새 버전 배포
     - etc..
+    - 정적 웹 앱 배포
+      1. firebase 로그인
+        ```
+        firebase login
+        ```
+      2. 프로젝트 초기화 -> 프로젝트 선택 -> 배포할 디렉터리 선택
+        ```
+        firebase init
+        ```
+      3. 배포
+      ```
+        firebase deploy
+      ``` 
+
+  
  
   - FireBase Realtime DB
     - https://firebase.google.com/docs/database/rtdb-vs-firestore?authuser=0
