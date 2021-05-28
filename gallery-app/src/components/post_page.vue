@@ -30,7 +30,6 @@
 <script>
 
 import oPictureData from '@/datasources/picture-data'
-
 import {oPicturesinDB} from '@/datasources/firebase'
 
 export default {

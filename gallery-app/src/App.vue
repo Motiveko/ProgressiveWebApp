@@ -1,12 +1,12 @@
 <template>
   <v-app>
-    <v-app-bar color="red" dark fixed>
+    <v-app-bar app color="red" dark fixed>
       <v-btn icon v-if="$route.name !== 'home_page'" @click="$router.go(-1)">
         <v-icon>arrow_back</v-icon>
       </v-btn>
       <v-toolbar-title>카메라 갤러리</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon v-if="$route.name=='home_page'" @click="$router.push('/camera')">
+      <v-btn icon v-if="$route.name == 'home_page'" @click="$router.push('/camera')">
         <v-icon>camera_alt</v-icon>
       </v-btn>
     </v-app-bar>

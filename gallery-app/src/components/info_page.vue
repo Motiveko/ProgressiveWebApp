@@ -4,7 +4,7 @@
       <v-col cols="12">
         <v-card class="py-3 px-3">
           <!-- contain 어트리뷰트를 이용해 세부 사진을 컨테이너 크기에 맞도록 자동으로 조절하여 표시 -->
-          <v-img height="450px" contain:src="this.itemPic.url"></v-img>
+          <v-img height="450px" contain :src="this.itemPic.url"></v-img>
           <v-card-text v-if="this.itemPic.title">
             <h1 class="headline mt-1 text-center">
               {{ this.itemPic.title }}

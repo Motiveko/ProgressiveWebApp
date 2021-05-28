@@ -2,12 +2,27 @@
   <v-container>
     <v-row>
       <v-col cols="12" class="text-center">
-        <video ref="rVideo" class="style_video"></video>
+        <video contains ref="rVideo" class="style_video"></video>
+      </v-col>
+      <v-col cols="12">
       </v-col>
       <v-col cols="12" class="mt-5 text-center">
         <p>현재 iOS는 지원하지 않습니다.</p>
       </v-col>
     </v-row>
+
+    <v-row mt-5>
+      <v-col offset="2" cols="8">
+        <v-text-field name="title" label="사진 제목" v-model="sTitle" autofocus></v-text-field>
+      </v-col>
+    </v-row>
+    <v-row>
+      <!-- 2 8 2 -->
+      <v-col offset="2" cols="8">
+        <v-text-field name="info" label="사진 설명" v-model="sInfo" multi-line rows="3"></v-text-field>
+      </v-col>
+    </v-row>
+    
     <div class="text-center my-3">
       <v-btn v-if="!this.bIsWait" color="red" fab dark bottom @click="fnCameraCapture()">
         <v-icon>camera</v-icon>
@@ -26,6 +41,8 @@ export default {
   data() {
     return {
       oPictures: [],
+      sTitle: '',
+      sInfo: '',
       oVideoStream: null,
       bIsWait: false
     }
@@ -53,44 +70,40 @@ export default {
 
       const oVideoTrack = this.oVideoStream.getVideoTracks()[0]
       let oCaptureedImage = new window.ImageCapture(oVideoTrack)
-      const options = {
-        imageHeight: 359, imageWidth: 640, fillLightMode: 'off'
+      const optionz = {
+        imageWidth: '640',
+        // fillLightMode: 'off'
+        // imageHeight: '359' 
       };
       
       // oCaptureedImage.takePhotos내부의 callback함수 내에서는 this를 쓸 수 없게되므로 this를 self로 선언 후 사용한다.
       const self = this
-
-      return oCaptureedImage.takePhoto(options).then(pImageData => {
+      return oCaptureedImage.takePhoto(optionz).then(pImageData => {
         const oTrack = self.oVideoStream.getTracks()
         oTrack.map(pTrack => pTrack.stop())
         console.log('캡쳐 :' + pImageData.type + ', ' + pImageData.size + '바이트')
         
         // 저장할 이미지 파일 이름으로 사용할 ID
-        const nID = new Date().toISOSTRING()
+        const nID = new Date().toISOString()
 
         let uploadTask = oStorage.ref('images').child('pic' + nID).put(pImageData)
         uploadTask.on('stage_changed', function(snapshot) {
           let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log('업로드 : ' + progress + '% 완료', snapshot.state)
-        }), function(err) {
+        }, function(err) {
           console.log(err)
         }, function() {
           // 업로드 완료 후 callback?
           uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
             console.log('업로드URL : ', downloadURL);
             oPicturesinDB.push({
-              'url' : downloadURL, 'title': '', 'info': '', 'filename': 'pic' + nID
+              'url' : downloadURL, 'title': self.sTitle, 'info': self.sInfo, 'filename': 'pic' + nID
             })
           })
           .then(self.$router.push('/'))
-        }
-        
+        })
       })
     }
   }
 }
 </script>
-
-<style>
-
-</style>
