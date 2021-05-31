@@ -89,11 +89,53 @@ module.exports = {
 <br> 
 
 ### Ch 11
+1. 워크박스로 캐시 관리하기 (InjectManifest 모드)
+ - 서비스워커에 직접 코드를 넣어야 할 경우 사용(직접 캐시 관리)
+ - GenerateSW모드와 달리 설정 필요
+ - vue.config.js에 InjecManifest 방식 선언
 ```
-
+module.exports = {
+  pwa: {
+    workboxPluginMode: 'InjectManifest', // InjectManifest 플러그인 모드는 반드시 선언
+    workboxOptions: {
+      swSrc: "src/service-worker.js"
+    }
+  },
+  ... 
+}
 ```
+ - service-worker.js에 캐시 관리
+ ```
+// 디버그 모드 -> 캐시 수행 시 콘솔창에 표시해준다.  'debug: false'로 prod모드로 사용가능
+workbox.setConfig({
+    debug: true
+})
 
+// 프리캐시
+// Vue-Cli에서 기본으로 제공하는 프리캐시 설정을 워크박스에 적용
+workbox.precacheAndRoute(self.__precacheManifest);
 
+// 런타임캐시
+workbox.routing.registerRoute(
+    new RegExp(
+        'https://firebasestorage.googleapis.com/v0/b/motiveko-84a06.appspot.com/.*'
+    ),
+    workbox.strategies.staleWhileRevalidate({
+        cacheName: 'camera-images',
+        plugins: [
+            new workbox.expiration.Plugin({
+                maxEntries: 60,                 // 캐시 갯수 : 60개
+                maxAgeSeconds: 60 * 60 * 24     // 캐시 기간 : 1일
+            })
+        ]
+    })
+)
+ ```
+
+- Vue-Cli의 기본 프리캐시 설정은 index.html, js, css와 index.html에 연결된 폰트, 아이콘 등을 자동으로 캐시
+- 런타임캐시는 아래와 같이 이뤄진다
+  - workbox.routing.registerRoute({{캐시할경로}},{{캐시전략}})
+  
 <br>
 
 ### FireBase

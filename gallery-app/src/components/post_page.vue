@@ -50,7 +50,7 @@ export default {
       this.sTitle = itemPic.title
       this.sInfo = itemPic.info
       this.sPicUrl = itemPic.url
-
+      
     },
     methods : {
       fnSubmitPost() {
