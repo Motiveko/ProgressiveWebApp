@@ -9,29 +9,29 @@ const routes = [
   {
     path: '/',
     name: 'start_page',
-    component: () => import('./components/start_page.vue')
+    component: () => import('../components/start_page.vue')
   },
   {
     path: '/main',
     name: 'main_page',
-    component: () => import('./components/main_page.vue'),
+    component: () => import('../components/main_page.vue'),
     // 메인 페이지는 인증과 연동, bAuth: true는 인증이 필요한 페이지라는 의미
     // meta: { bAuth : true } 
   },
   {
     path: '/login',
     name: 'login_page',
-    component: () => import('./components/login_page.vue'),
+    component: () => import('../components/login_page.vue'),
   },
   {
     path: '/register',
     name: 'register_page',
-    component: () => import('./components/register_page.vue'),
+    component: () => import('../components/register_page.vue'),
   },  
   {
     path: '/*',
     name: 'error_page',
-    component: () => import('./components/error_page.vue'),
+    component: () => import('../components/error_page.vue'),
   },  
 ]
 

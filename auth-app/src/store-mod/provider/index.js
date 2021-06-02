@@ -12,7 +12,7 @@ export default ({
     }
   },
   getters: {
-    fnGetUser() {
+    fnGetUser(state) {
       return state.oUser
     },
     fnGetAuthStatus(state) {
@@ -87,7 +87,7 @@ export default ({
           });
           commit("fnSetLoading", false)
           commit("fnSetErrorMessage", "")
-          router.push("/main")  
+          router.push("/main")
         })
         .catch(err => {
           commit("fnSetErrorMessage", err.message)
