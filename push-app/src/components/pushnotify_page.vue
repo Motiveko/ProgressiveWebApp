@@ -42,16 +42,21 @@ export default {
   methods: {
     fnSendPush() {
       const PrepareData = JSON.stringify({
-        pTitle = this.sTitle,
+        pTitle: this.sTitle,
         pMsg: this.sMsg
       })
-      fetch('https://us-central1-pwa-notification-push.cloudfunctions.net/storePushData', {
+      fetch('https://us-central1-motiveko-84a06.cloudfunctions.net/storePushData', {
         method: 'POST',
         headers: {
           'Content-type' : 'application/json'
         },
         body: PrepareData
-      }).catch(err => console.log('오류!' + err.message))
+      })
+      .then(res => {
+        console.log('호출완료')
+        console.log(res)
+      })
+      .catch(err => console.log('오류!' + err.message))
     }
   }
 }

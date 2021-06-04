@@ -44,6 +44,11 @@ export default {
       ]
     }
   },
+  created() {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js');
+    }
+  },
   name: 'App'
 };
 </script>

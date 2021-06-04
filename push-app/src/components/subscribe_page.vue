@@ -48,7 +48,7 @@ export default {
     fnPushSubscribe() {
       // 알림 동의여부창 호출
       let temp_this = this;
-      Notification.body('안녕하싀귀?')
+
       Notification.requestPermission(function(result) {
         // result : granted / denied
         if(result !== "granted") {
@@ -61,6 +61,7 @@ export default {
     fnConfigurePushSub() {
       // 서비스워커 점검 및 푸시 서버 설정
       let temp_this = this;
+      console.log(navigator.serviceWorker)
       if(!("serviceWorker" in navigator)) {
         console.log("서비스 워커가 없습니다.")
         return;
@@ -97,13 +98,14 @@ export default {
                   .then(newSub => {
                     // newSub : 푸시 메시지를 전달하는데 필요한 정보 반환값
                     const filteredSub = JSON.parse(JSON.stringify(newSub));
-                    var PushConfig = {
-                      endPoint: filteredSub.endPoint,
+                    var pushConfig = {
+                      endPoint: filteredSub.endpoint,
                       keys: {
                         p256dh: filteredSub.keys.p256dh,
                         auth:   filteredSub.keys.auth
                       }
                     }
+                    console.log(pushConfig)
                     return oSubscriptionsinDB.push(pushConfig)
                   })
         })
@@ -134,7 +136,7 @@ export default {
           {
             // 푸시알림에 title, icon의 내용이 표시되고 action값이 매개변수로 전달되어 이것을 이용해서 지정된 웹페이지로 이동 등이 가능하다.
             action: 'like',
-            title: '커피를 좋아하시면 링크를 클릭하세요',
+            title: '구독과 좋아요는. 사랑입니다.',
             icon: '/img/push-coffe.png'
           }
         ],
@@ -146,7 +148,7 @@ export default {
       })
     },
     // 코드 등록 때 필요할 숫자 변환용 유틸리티 함수
-    urlBase64ToUint8Array(vapidPublicKey) {
+    urlBase64ToUint8Array(base64String) {
       const padding = '='.repeat((4 - base64String.length % 4) % 4)
       const base64 = (base64String + padding)
         /* eslint-disable */
